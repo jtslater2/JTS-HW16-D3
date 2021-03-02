@@ -64,7 +64,27 @@ function makeResponsive() {
 
   //Load data csv
   d3.csv("assets/data/data.csv").then(function(scatter_data) {
-    console.log (scatter_data) });
+    console.log (scatter_data) 
+    
+    scatter_data.forEach(function(data) {
+      data.smokesHigh = +data.smokesHigh;
+      data.age = +data.age;
+    });
+  
+    //create scatter with age as x and smokes as y
+
+    scatterGroup.selectAll("#scatter")
+        .data(scatter_data)
+        .enter()
+        .append("circle")
+        .class
+  
+  
+  
+  
+  
+                
+    });
   
   
     // chartGroup.selectAll("rect")
@@ -90,6 +110,9 @@ function makeResponsive() {
     //       d3.select(this)
     //             .attr("fill", "green");
     //     });
+
+
+
 }
 
 makeResponsive();
