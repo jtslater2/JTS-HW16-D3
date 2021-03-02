@@ -18,13 +18,26 @@
   // if (!svgArea.empty()) {
   //   svgArea.remove();
   // }
+var svgHeight = 500;
+var svgWidth = 1000;
 
-  var svgHeight = 500;
-  var svgWidth = 1000;
-  
-  var svgArea = d3.select("body").append("svg")
+var margin = {
+  top: 10,
+  right: 10,
+  bottom: 10,
+  left: 10
+};
+
+var chartHeight = svgHeight - margin.top - margin.bottom;
+var chartWidth = svgWidth - margin.left - margin.right;
+
+
+var svg = d3.select("body").append("svg")
        .attr("height", svgHeight)
        .attr("width", svgWidth);
+
+// var scatterGroup = svg.append("g")
+//        .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 
 
@@ -36,25 +49,25 @@
 
 
     // margin
-  var margin = {
-    top: 10,
-    right: 10,
-    bottom: 10,
-    left: 10
-  };
+  // var margin = {
+  //   top: 10,
+  //   right: 10,
+  //   bottom: 10,
+  //   left: 10
+  // };
 
     // chart area minus margins
-  var chartHeight = svgHeight - margin.top - margin.bottom;
-  var chartWidth = svgWidth - margin.left - margin.right;
+  // var chartHeight = svgHeight - margin.top - margin.bottom;
+  // var chartWidth = svgWidth - margin.left - margin.right;
 
     // create svg container
-  // var svg = d3.select("body").append("svg")
-  //        .attr("height", svgHeight)
-  //        .attr("width", svgWidth);
+  //  var svg = d3.select("body").append("svg")
+  //         .attr("height", svgHeight)
+  //         .attr("width", svgWidth);
 
     // shift everything over by the margins
-  var scatterGroup = svg.append("g")
-        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+   var scatterGroup = svg.append("g")
+         .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
   //   // scale y to chart height
   // var yScale = d3.scaleLinear()
@@ -88,8 +101,12 @@ d3.csv("assets/data/data.csv").then(function(scatter_data) {
     scatter_data.forEach(function(data) {
       data.smokesHigh = +data.smokesHigh;
       data.age = +data.age;
+      data.income = +data.imcome;
+      data.obesity = +data.obesity;
+
     });
-  
+    // console.log(data.smokesHigh);
+    // console.log(data.age);
     //create scatter with age as x and smokes as y
 
     scatterGroup.selectAll("#scatter")
@@ -98,7 +115,7 @@ d3.csv("assets/data/data.csv").then(function(scatter_data) {
         .append("circle")
         .classed("scatter", true)
         .attr("cx", d => d.age)
-        .attr("cy", d => d.smokesHigh)
+        .attr("cy", d => d.obesity)
         .attr("r", 2)
         .attr("stroke", "blue")
         .attr("stroke-width", "1")
