@@ -28,9 +28,11 @@ var margin = {
   left: 10
 };
 
-var chartHeight = svgHeight - margin.top - margin.bottom;
-var chartWidth = svgWidth - margin.left - margin.right;
+var plotHeight = svgHeight - margin.top - margin.bottom;
+var plotWidth = svgWidth - margin.left - margin.right;
 
+console.log(plotHeight)
+console.log(plotWidth)
 
 var svg = d3.select("body").append("svg")
        .attr("height", svgHeight)
@@ -66,8 +68,18 @@ var svg = d3.select("body").append("svg")
   //         .attr("width", svgWidth);
 
     // shift everything over by the margins
-   var scatterGroup = svg.append("g")
-         .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+
+  var xl = d3.scaleLinear()
+    .domain([0,100])
+    .range([100,800]);
+  var scatterGroup = svg.append("g")
+         .attr("transform", `translate(${margin.left}, ${margin.top})`)
+         .call(d3.axisBottom(xl))
+
+         ;
+         
+         
 
   //   // scale y to chart height
   // var yScale = d3.scaleLinear()
@@ -95,13 +107,18 @@ var svg = d3.select("body").append("svg")
 
 
   //Load data csv
+
+  // var xl = d3.scaleLinear()
+  // .domain([0,100])
+  // .range([200,600]);
+
 d3.csv("assets/data/data.csv").then(function(scatter_data) {
     console.log (scatter_data) 
     
     scatter_data.forEach(function(data) {
       data.smokesHigh = +data.smokesHigh;
       data.age = +data.age;
-      data.income = +data.imcome;
+      data.income = +data.income;
       data.obesity = +data.obesity;
 
     });
@@ -114,16 +131,17 @@ d3.csv("assets/data/data.csv").then(function(scatter_data) {
         .enter()
         .append("circle")
         .classed("scatter", true)
-        .attr("cx", d => d.age)
-        .attr("cy", d => d.obesity)
+        .attr("cx", d => d.obesity)
+        .attr("cy", d => d.age)
         .attr("r", 2)
         .attr("stroke", "blue")
         .attr("stroke-width", "1")
         .attr("fill", "grey")
-        .attr("text", d => d.abbr);
-  
-  
-  
+        .attr("text", d => d.abbr)
+        // .call(d3.axisBottom(xl))
+
+        
+        
   
                 
     });
