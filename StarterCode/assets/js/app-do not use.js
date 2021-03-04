@@ -1,167 +1,77 @@
 // @TODO: YOUR CODE HERE!
-//var dataArray = [1, 2, 3];
-//var dataCategories = ["one", "two", "three"];
+// Purpose: Create a D3 scatter plot comparing two specific parameters in the dataset given or another dataset of my chosing
+// Create a scatter plot function
 
-// function makeResponsive() {
+// Focus: Income vs High End Obesity by state
+// Function scatterplot GO!
 
-    // if the SVG area isn't empty when the browser loads,
-    // remove it and replace it with a resized version of the chart
+//function buildScatterPlot(error, data) {
 
-  // var svgHeight = 500;
-  // var svgWidth = 1000;
-  
-  // var svgArea = d3.select("body").append("svg")
-  //     .attr("height", svgHeight)
-  //     .attr("width", svgWidth);
-  
+// // console log the data
+// console.log(data);
 
-  // if (!svgArea.empty()) {
-  //   svgArea.remove();
-  // }
-  var svgHeight = 500;
-  var svgWidth = 1000;
-  
-  var margin = {
-    top: 10,
-    right: 10,
-    bottom: 10,
-    left: 10
-  };
-  
-  var chartHeight = svgHeight - margin.top - margin.bottom;
-  var chartWidth = svgWidth - margin.left - margin.right;
-  
-  
-  var svg = d3.select("body").append("svg")
-         .attr("height", svgHeight)
-         .attr("width", svgWidth);
-  
-  // var scatterGroup = svg.append("g")
-  //        .attr("transform", `translate(${margin.left}, ${margin.top})`);
-  
-  
-  
-      // svg params
-    // var svgHeight = window.innerHeight;
-    // var svgWidth = window.innerWidth;
-    // var svgHeight = 500;
-    // var svgWidth = 1000;
-  
-  
-      // margin
-    // var margin = {
-    //   top: 10,
-    //   right: 10,
-    //   bottom: 10,
-    //   left: 10
-    // };
-  
-      // chart area minus margins
-    // var chartHeight = svgHeight - margin.top - margin.bottom;
-    // var chartWidth = svgWidth - margin.left - margin.right;
-  
-      // create svg container
-    //  var svg = d3.select("body").append("svg")
-    //         .attr("height", svgHeight)
-    //         .attr("width", svgWidth);
-  
-      // shift everything over by the margins
-     var scatterGroup = svg.append("g")
-           .attr("transform", `translate(${margin.left}, ${margin.top})`);
-  
-    //   // scale y to chart height
-    // var yScale = d3.scaleLinear()
-    //       .domain([0, d3.max(dataArray)])
-    //       .range([chartHeight, 0]);
-  
-    //   // scale x to chart width
-    // var xScale = d3.scaleBand()
-    //       .domain(dataCategories)
-    //       .range([0, chartWidth])
-    //       .padding(0.1);
-  
-    //   // create axes
-    // var yAxis = d3.axisLeft(yScale);
-    // var xAxis = d3.axisBottom(xScale);
-  
-    //   // set x to the bottom of the chart
-    // chartGroup.append("g")
-    //       .attr("transform", `translate(0, ${chartHeight})`)
-    //       .call(xAxis);
-  
-    //   // set y to the y axis
-    // chartGroup.append("g")
-    //       .call(yAxis);
-  
-  
-    //Load data csv
-  d3.csv("assets/data/data.csv").then(function(scatter_data) {
-      console.log (scatter_data) 
-      
-      scatter_data.forEach(function(data) {
-        data.smokesHigh = +data.smokesHigh;
-        data.age = +data.age;
-        data.income = +data.imcome;
-        data.obesity = +data.obesity;
-  
-      });
-      // console.log(data.smokesHigh);
-      // console.log(data.age);
-      //create scatter with age as x and smokes as y
-  
-      scatterGroup.selectAll("#scatter")
-          .data(scatter_data)
-          .enter()
-          .append("circle")
-          .classed("scatter", true)
-          .attr("cx", d => d.age)
-          .attr("cy", d => d.obesity)
-          .attr("r", 2)
-          .attr("stroke", "blue")
-          .attr("stroke-width", "1")
-          .attr("fill", "grey")
-          .attr("text", d => d.abbr);
-    
-    
-    
-    
-                  
-      });
-    
-    
-      // chartGroup.selectAll("rect")
-      //     .data(dataArray)
-      //     .enter()
-      //     .append("rect")
-      //     .attr("x", (d, i) => xScale(dataCategories[i]))
-      //     .attr("y", d => yScale(d))
-      //     .attr("width", xScale.bandwidth())
-      //     .attr("height", d => chartHeight - yScale(d))
-      //     .attr("fill", "green")
-      //     // event listener for onclick event
-      //     .on("click", function(d, i) {
-      //       alert(`Hey! You clicked bar ${dataCategories[i]}!`);
-      //     })
-      //     // event listener for mouseover
-      //     .on("mouseover", function() {
-      //       d3.select(this)
-      //             .attr("fill", "red");
-      //     })
-      //     // event listener for mouseout
-      //     .on("mouseout", function() {
-      //       d3.select(this)
-      //             .attr("fill", "green");
-      //     });
-  
-  
-  
-  // }
-  
-  // makeResponsive();
-  
-  // Event listener for window resize.
-  // When the browser window is resized, makeResponsive() is called.
-  // d3.select(window).on("resize", makeResponsive);
+// // Log an error if one exists
+// if (error) return console.warn(error);
 
-  
-  
+// Define SVG area dimensions
+var svgWidth = 960;
+var svgHeight = 660;
+
+// Define the chart's margins as an object
+var chartMargin = {
+top: 30,
+right: 30,
+bottom: 30,
+left: 30
+};
+
+// Define dimensions of the chart area
+var chartWidth = svgWidth - chartMargin.left - chartMargin.right;
+var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
+
+// Select body, append SVG area to it, and set the dimensions
+var svg = d3
+.select("#scatter") //might change to #scatter later
+.append("svg")
+.attr("height", svgHeight)
+.attr("width", svgWidth);
+
+// Append a group to the SVG area and shift ('translate') it to the right and down to adhere
+// to the margins set in the "chartMargin" object.
+var scatterGroup = svg.append("g")
+.attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
+
+// Load the data csv with D3
+d3.csv("assets/data/data.csv").then(function(dataset) {
+
+    // log errors if any and console.log(dataset)
+    // if (error) return console.warn(error);
+    
+    console.log(dataset);
+
+    //cast the obesityHigh as a number to make sure it stays that way
+    dataset.forEach(function(data) {
+        data.obesityHigh = +data.obesityHigh;
+        data.income = +data.income;
+    });
+
+    // create the code to imput the circles for each of the states given
+    //      with the obesityHigh as the Y variable and income as the X variable
+    scatterGroup.selectAll("#scatter")
+        .data(dataset)
+        .enter()
+        .append("circle")
+        .classed("scatter", true)
+        .attr("cx", d => d.income)
+        .attr("cy", d => d.obesityHigh)
+        .attr("r", 8)
+        .attr("stroke", "black")
+        .attr("stroke-width", "1")
+        .attr("fill", "none")
+        .attr("text", d => d.abbr);
+
+
+}).catch(function(error) {
+    console.log(error);
+});
+

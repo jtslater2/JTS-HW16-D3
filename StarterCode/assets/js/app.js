@@ -34,10 +34,13 @@ var plotWidth = svgWidth - margin.left - margin.right;
 console.log(plotHeight)
 console.log(plotWidth)
 
-var svg = d3.select("body").append("svg")
-       .attr("height", svgHeight)
-       .attr("width", svgWidth);
-
+var svg = d3.select("body")
+          .append("svg")
+            .attr("height", plotHeight)
+            .attr("width", plotWidth)
+          .append("g")
+            .attr("transform", `translate(${margin.left}, ${margin.top})`)
+            // .call(d3.axisBottom(xl));
 // var scatterGroup = svg.append("g")
 //        .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
@@ -70,14 +73,14 @@ var svg = d3.select("body").append("svg")
     // shift everything over by the margins
 
 
-  var xl = d3.scaleLinear()
-    .domain([0,100])
-    .range([100,800]);
-  var scatterGroup = svg.append("g")
-         .attr("transform", `translate(${margin.left}, ${margin.top})`)
-         .call(d3.axisBottom(xl))
+  // var xl = d3.scaleLinear()
+  //   .domain([0,100])
+  //   .range([100,800]);
+  // var scatterGroup = svg.append("g")
+  //        .attr("transform", `translate(${margin.left}, ${margin.top})`)
+  //        .call(d3.axisBottom(xl))
 
-         ;
+  //        ;
          
          
 
@@ -126,7 +129,8 @@ d3.csv("assets/data/data.csv").then(function(scatter_data) {
     // console.log(data.age);
     //create scatter with age as x and smokes as y
 
-    scatterGroup.selectAll("#scatter")
+    svg.selectAll("#scatter")
+    //  svg.append("g")
         .data(scatter_data)
         .enter()
         .append("circle")
