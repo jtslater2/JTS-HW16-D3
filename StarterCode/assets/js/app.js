@@ -86,13 +86,35 @@ scatterGroup.selectAll("circle")
 .append("circle")
 .attr("cx", d=>xScale(d.age))
 .attr("cy", d=>yScale(d.smokes))
-.attr("r", "7")
+.attr("r", "9")
 .attr("stroke", "blue")
 .attr("stroke-width", "1")
-.attr("opacity", .5)
+.attr("opacity", .8)
 // .attr("fill", "grey")
-// .classed("stateCircle", true)
+.classed("stateCircle", true)
 .attr("text", d => d.abbr)
+
+
+scatterGroup.append("g")
+  .selectAll('text')
+  .data(scatter_data)
+  .enter()
+  .append("text")
+  .text(d=>d.abbr)
+  .attr("x",d=>xScale(d.age))
+  .attr("y",d=>yScale(d.smokes))
+  .classed(".stateText", true)
+  // .attr("font-family", "sans-serif")
+  .attr("text-anchor", "middle")
+  .attr("fill", "black")
+  .attr("font-size", "10px")
+  .style("font-weight", "bold")
+  .attr("alignment-baseline", "central");
+
+
+
+
+
 
 // svg.selectAll("#scatter")
 // svg.append("g")
@@ -109,53 +131,6 @@ scatterGroup.selectAll("circle")
 //  .attr("text", d => d.abbr)
 //  // .call(d3.axisBottom(xl))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // svg params
-  // var svgHeight = window.innerHeight;
-  // var svgWidth = window.innerWidth;
-  // var svgHeight = 500;
-  // var svgWidth = 1000;
-
-
-    // margin
-  // var margin = {
-  //   top: 10,
-  //   right: 10,
-  //   bottom: 10,
-  //   left: 10
-  // };
-
-    // chart area minus margins
-  // var chartHeight = svgHeight - margin.top - margin.bottom;
-  // var chartWidth = svgWidth - margin.left - margin.right;
-
-    // create svg container
-  //  var svg = d3.select("body").append("svg")
-  //         .attr("height", svgHeight)
-  //         .attr("width", svgWidth);
-
-    // shift everything over by the margins
 
 
   // var xl = d3.scaleLinear()
@@ -235,20 +210,20 @@ scatterGroup.selectAll("circle")
     // console.log(data.age);
     //create scatter with age as x and smokes as y
 
-    svg.selectAll("#scatter")
-       svg.append("g")
-        .data(scatter_data)
-        .enter()
-        .append("circle")
-        .classed("scatter", true)
-        .attr("cx", d => d.obesity)
-        .attr("cy", d => d.age)
-        .attr("r", 2)
-        .attr("stroke", "blue")
-        .attr("stroke-width", "1")
-        .attr("fill", "grey")
-        .attr("text", d => d.abbr)
-        // .call(d3.axisBottom(xl))
+    // svg.selectAll("#scatter")
+    //    svg.append("g")
+    //     .data(scatter_data)
+    //     .enter()
+    //     .append("circle")
+    //     .classed("scatter", true)
+    //     .attr("cx", d => d.obesity)
+    //     .attr("cy", d => d.age)
+    //     .attr("r", 2)
+    //     .attr("stroke", "blue")
+    //     .attr("stroke-width", "1")
+    //     .attr("fill", "grey")
+    //     .attr("text", d => d.abbr)
+    //     // .call(d3.axisBottom(xl))
 
         
         
