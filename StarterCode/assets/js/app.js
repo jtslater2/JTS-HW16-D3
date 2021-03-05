@@ -1,31 +1,12 @@
 // @TODO: YOUR CODE HERE!
-//var dataArray = [1, 2, 3];
-//var dataCategories = ["one", "two", "three"];
-
-// function makeResponsive() {
-
-    // if the SVG area isn't empty when the browser loads,
-    // remove it and replace it with a resized version of the chart
-
-  // var svgHeight = 500;
-  // var svgWidth = 1000;
-  
-  // var svgArea = d3.select("body").append("svg")
-  //     .attr("height", svgHeight)
-  //     .attr("width", svgWidth);
-  
-
-  // if (!svgArea.empty()) {
-  //   svgArea.remove();
-  // }
 var svgHeight = 500;
 var svgWidth = 1000;
 
 var margin = {
-  top: 30,
-  right: 30,
+  top: 20,
+  right: 40,
   bottom: 60,
-  left: 30
+  left: 55
 };
 
 var plotHeight = svgHeight - margin.top - margin.bottom;
@@ -36,19 +17,12 @@ console.log(plotWidth)
 
 var svg = d3.select("#scatter")
           .append("svg")
-          .attr("height", plotHeight)
-          .attr("width", plotWidth)
-          // .append("g")
-          //   .attr("transform", `translate(${margin.left}, ${margin.top})`)
-          //   // .call(d3.axisBottom(xl));
-
-
+          .attr("height", svgHeight)
+          .attr("width", svgWidth)
+          
 
 var scatterGroup = svg.append("g")
           .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
-
-
 
 
 d3.csv("assets/data/data.csv").then(function(scatter_data) {
@@ -67,7 +41,7 @@ d3.csv("assets/data/data.csv").then(function(scatter_data) {
    .nice(); 
 
   const yScale = d3.scaleLinear()
-   .domain([6,d3.max(scatter_data, d => d.smokes)])
+   .domain([8,d3.max(scatter_data, d => d.smokes)])
    .range([plotHeight, 0])
    .nice();
  
@@ -90,7 +64,6 @@ scatterGroup.selectAll("circle")
 .attr("stroke", "blue")
 .attr("stroke-width", "1")
 .attr("opacity", .8)
-// .attr("fill", "grey")
 .classed("stateCircle", true)
 .attr("text", d => d.abbr)
 
@@ -104,7 +77,6 @@ scatterGroup.append("g")
   .attr("x",d=>xScale(d.age))
   .attr("y",d=>yScale(d.smokes))
   .classed(".stateText", true)
-  // .attr("font-family", "sans-serif")
   .attr("text-anchor", "middle")
   .attr("fill", "black")
   .attr("font-size", "10px")
@@ -112,158 +84,28 @@ scatterGroup.append("g")
   .attr("alignment-baseline", "central");
 
 
+scatterGroup.append("text")
+  .attr("transform", `translate(${plotWidth / 2}, ${plotHeight + margin.top + 14})`)
+  .attr("text-anchor", "middle")
+  .attr("font-size", "16px")
+  .attr("fill", "black")
+  .style("font-weight", "bold")
+  .text("Median Age");
+
+scatterGroup.append("text")
+  .attr("y", 0 - ((margin.left / 2) + 2))
+  .attr("x", 0 - (plotHeight / 2))
+  .attr("text-anchor", "middle")
+  .attr("font-size", "16px")
+  .attr("fill", "black")
+  .style("font-weight", "bold")
+  .attr("transform", "rotate(-90)")
+  .text("Smokers (%)");
 
 
+}).catch(function(error) {
+console.log(error);
+});
 
-
-// svg.selectAll("#scatter")
-// svg.append("g")
-//  .data(scatter_data)
-//  .enter()
-//  .append("circle")
-//  .classed("scatter", true)
-//  .attr("cx", d => d.obesity)
-//  .attr("cy", d => d.age)
-//  .attr("r", 2)
-//  .attr("stroke", "blue")
-//  .attr("stroke-width", "1")
-//  .attr("fill", "grey")
-//  .attr("text", d => d.abbr)
-//  // .call(d3.axisBottom(xl))
-
-
-
-  // var xl = d3.scaleLinear()
-  //   .domain([0,100])
-  //   .range([100,800]);
-  // var scatterGroup = svg.append("g")
-  //        .attr("transform", `translate(${margin.left}, ${margin.top})`)
-  //        .call(d3.axisBottom(xl))
-
-  //        ;
-         
-         
-
-  //   // scale y to chart height
-  // var yScale = d3.scaleLinear()
-  //       .domain([0, d3.max(dataArray)])
-  //       .range([chartHeight, 0]);
-
-  //   // scale x to chart width
-  // var xScale = d3.scaleBand()
-  //       .domain(dataCategories)
-  //       .range([0, chartWidth])
-  //       .padding(0.1);
-
-  //   // create axes
-  // var yAxis = d3.axisLeft(yScale);
-  // var xAxis = d3.axisBottom(xScale);
-
-  //   // set x to the bottom of the chart
-  // chartGroup.append("g")
-  //       .attr("transform", `translate(0, ${chartHeight})`)
-  //       .call(xAxis);
-
-  //   // set y to the y axis
-  // chartGroup.append("g")
-  //       .call(yAxis);
-
-
-  //Load data csv
-
-  // var xl = d3.scaleLinear()
-  // .domain([0,100])
-  // .range([200,600]);
-
-// d3.csv("assets/data/data.csv").then(function(scatter_data) {
-//     console.log (scatter_data) 
-    
-  // const xScale = d3.scaleLinear()
-  //   .domain(d3.extent(scatter_data, d => d.age))
-  //   .range([0, width])
-  //   .nice(); 
-
-  // const yScale = d3.scaleLinear()
-  //   .domain([6,d3.max(scatter_data, d => d.smokes)])
-  //   .range([height, 0])
-  //   .nice();
-  
-  
-  // const xAxis = d3.axisBottom(xScale);
-  // const yAxis = d3.axisLeft(yScale);
-
-
-
-
-    // const xScale = d3.scaleLinear()
-    // .domain(d3.extent(scatter_data, d => d.age))
-    // .range([0, width])
-    // .nice(); 
-
-    //  const yScale = d3.scaleLinear()
-    // .domain([6,d3.max(scatter_data, d => d.smokes)])
-    // .range([height, 0])
-    // .nice();
-
-     });
-    // // console.log(data.smokesHigh);
-    // console.log(data.age);
-    //create scatter with age as x and smokes as y
-
-    // svg.selectAll("#scatter")
-    //    svg.append("g")
-    //     .data(scatter_data)
-    //     .enter()
-    //     .append("circle")
-    //     .classed("scatter", true)
-    //     .attr("cx", d => d.obesity)
-    //     .attr("cy", d => d.age)
-    //     .attr("r", 2)
-    //     .attr("stroke", "blue")
-    //     .attr("stroke-width", "1")
-    //     .attr("fill", "grey")
-    //     .attr("text", d => d.abbr)
-    //     // .call(d3.axisBottom(xl))
-
-        
-        
-  
-                
-    // });
-  
-  
-    // chartGroup.selectAll("rect")
-    //     .data(dataArray)
-    //     .enter()
-    //     .append("rect")
-    //     .attr("x", (d, i) => xScale(dataCategories[i]))
-    //     .attr("y", d => yScale(d))
-    //     .attr("width", xScale.bandwidth())
-    //     .attr("height", d => chartHeight - yScale(d))
-    //     .attr("fill", "green")
-    //     // event listener for onclick event
-    //     .on("click", function(d, i) {
-    //       alert(`Hey! You clicked bar ${dataCategories[i]}!`);
-    //     })
-    //     // event listener for mouseover
-    //     .on("mouseover", function() {
-    //       d3.select(this)
-    //             .attr("fill", "red");
-    //     })
-    //     // event listener for mouseout
-    //     .on("mouseout", function() {
-    //       d3.select(this)
-    //             .attr("fill", "green");
-    //     });
-
-
-
-// }
-
-// makeResponsive();
-
-// Event listener for window resize.
-// When the browser window is resized, makeResponsive() is called.
-// d3.select(window).on("resize", makeResponsive);
 
 

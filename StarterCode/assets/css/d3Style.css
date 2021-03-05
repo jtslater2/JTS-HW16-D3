@@ -40,6 +40,11 @@
   margin: 0;
 }
 
+.scatter {
+  display: block;
+  margin: 0;
+}
+
 .d3-tip {
   padding: 6px;
   font-size: 12px;
