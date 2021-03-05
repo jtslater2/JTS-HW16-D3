@@ -34,35 +34,35 @@ var plotWidth = svgWidth - margin.left - margin.right;
 console.log(plotHeight)
 console.log(plotWidth)
 
-var svg = d3.select("body")
+var svg = d3.select("#scatter")
           .append("svg")
             .attr("height", plotHeight)
             .attr("width", plotWidth)
-          .append("g")
-            .attr("transform", `translate(${margin.left}, ${margin.top})`)
-            // .call(d3.axisBottom(xl));
+          // .append("g")
+          //   .attr("transform", `translate(${margin.left}, ${margin.top})`)
+          //   // .call(d3.axisBottom(xl));
 // var scatterGroup = svg.append("g")
 //        .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 
 
-d3.csv("assets/data/data.csv").then(function(CensusData) {
-  CensusData.forEach(function(data) {
-    data.age = +data.age;
-    data.smokes = +data.smokes;
-    console.log(data)
+// d3.csv("assets/data/data.csv").then(function(CensusData) {
+//   CensusData.forEach(function(data) {
+//     data.age = +data.age;
+//     data.smokes = +data.smokes;
+//     console.log(data)
    
-  });
+//   });
 
-var scale = d3.scaleLinear()
-  .domain([d3.min(CensusData), d3.max(CensusData)])
-  .range([0, plotWidth - 100]);
+// var scale = d3.scaleLinear()
+//   .domain([d3.min(CensusData), d3.max(CensusData)])
+//   .range([0, plotWidth - 100]);
 
-var x_axis = d3.axisBottom()
-              .scale(scale);
-svg.append("g")
-  .call(x_axis);
-//   const xScale = d3.scaleLinear()
+// var x_axis = d3.axisBottom()
+//               .scale(scale);
+// svg.append("g")
+//   .call(x_axis);
+// //   const xScale = d3.scaleLinear()
 //     .domain(d3.extent(CensusData, d => d.age))
 //     .range([0, width])
 //     .nice(); 
@@ -182,11 +182,11 @@ svg.append("g")
   // const yAxis = d3.axisLeft(yScale);
 
 
-    // scatter_data.forEach(function(data) {
-    //   data.smokesHigh = +data.smokesHigh;
-    //   data.age = +data.age;
-    //   data.income = +data.income;
-    //   data.obesity = +data.obesity;
+    scatter_data.forEach(function(data) {
+      data.smokesHigh = +data.smokesHigh;
+      data.age = +data.age;
+      data.income = +data.income;
+      data.obesity = +data.obesity;
 
 
 
@@ -200,14 +200,14 @@ svg.append("g")
     // .range([height, 0])
     // .nice();
 
-    // });
+     });
     // // console.log(data.smokesHigh);
     // console.log(data.age);
     //create scatter with age as x and smokes as y
 
     svg.selectAll("#scatter")
     //  svg.append("g")
-        .data(CensusData)
+        .data(scatter_data)
         .enter()
         .append("circle")
         .classed("scatter", true)
