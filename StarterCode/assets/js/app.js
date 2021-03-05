@@ -36,23 +36,32 @@ console.log(plotWidth)
 
 var svg = d3.select("#scatter")
           .append("svg")
-            .attr("height", plotHeight)
-            .attr("width", plotWidth)
+          .attr("height", plotHeight)
+          .attr("width", plotWidth)
           // .append("g")
           //   .attr("transform", `translate(${margin.left}, ${margin.top})`)
           //   // .call(d3.axisBottom(xl));
-// var scatterGroup = svg.append("g")
-//        .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 
 
-// d3.csv("assets/data/data.csv").then(function(CensusData) {
-//   CensusData.forEach(function(data) {
-//     data.age = +data.age;
-//     data.smokes = +data.smokes;
-//     console.log(data)
+var scatterGroup = svg.append("g")
+          .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+
+
+
+
+d3.csv("assets/data/data.csv").then(function(scatter_data) {
+   scatter_data.forEach(function(data) {
+     data.age = +data.age;
+     data.smokes = +data.smokes
+     data.income = +data.income;
+     data.obesity = +data.obesity;
+     console.log(data)
    
-//   });
+   });
+
+
 
 // var scale = d3.scaleLinear()
 //   .domain([d3.min(CensusData), d3.max(CensusData)])
@@ -181,12 +190,6 @@ var svg = d3.select("#scatter")
   // const xAxis = d3.axisBottom(xScale);
   // const yAxis = d3.axisLeft(yScale);
 
-
-    scatter_data.forEach(function(data) {
-      data.smokesHigh = +data.smokesHigh;
-      data.age = +data.age;
-      data.income = +data.income;
-      data.obesity = +data.obesity;
 
 
 
