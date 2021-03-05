@@ -46,6 +46,55 @@ var svg = d3.select("body")
 
 
 
+d3.csv("assets/data/data.csv").then(function(CensusData) {
+  CensusData.forEach(function(data) {
+    data.age = +data.age;
+    data.smokes = +data.smokes;
+    console.log(data)
+   
+  });
+
+var scale = d3.scaleLinear()
+  .domain([d3.min(CensusData), d3.max(CensusData)])
+  .range([0, plotWidth - 100]);
+
+var x_axis = d3.axisBottom()
+              .scale(scale);
+svg.append("g")
+  .call(x_axis);
+//   const xScale = d3.scaleLinear()
+//     .domain(d3.extent(CensusData, d => d.age))
+//     .range([0, width])
+//     .nice(); 
+
+//   const yScale = d3.scaleLinear()
+//     .domain([6,d3.max(CensusData, d => d.smokes)])
+//     .range([height, 0])
+//     .nice();
+  
+  
+//   const xAxis = d3.axisBottom(xScale);
+//   const yAxis = d3.axisLeft(yScale);
+
+
+
+//   chartGroup.append("g").attr("transform", `translate(0, ${height})`).call(xAxis);
+//   chartGroup.append("g").call(yAxis);
+
+
+// chartGroup.selectAll("circle")
+// .data(CensusData)
+// .enter()
+// .append("circle")
+// .attr("cx", d=>xScale(d.age))
+// .attr("cy", d=>yScale(d.smokes))
+// .attr("r", "10")
+// .attr("stroke-width", "1")
+// .classed("stateCircle", true)
+// .attr("opacity", 0.75);
+
+
+
     // svg params
   // var svgHeight = window.innerHeight;
   // var svgWidth = window.innerWidth;
@@ -115,23 +164,50 @@ var svg = d3.select("body")
   // .domain([0,100])
   // .range([200,600]);
 
-d3.csv("assets/data/data.csv").then(function(scatter_data) {
-    console.log (scatter_data) 
+// d3.csv("assets/data/data.csv").then(function(scatter_data) {
+//     console.log (scatter_data) 
     
-    scatter_data.forEach(function(data) {
-      data.smokesHigh = +data.smokesHigh;
-      data.age = +data.age;
-      data.income = +data.income;
-      data.obesity = +data.obesity;
+  // const xScale = d3.scaleLinear()
+  //   .domain(d3.extent(scatter_data, d => d.age))
+  //   .range([0, width])
+  //   .nice(); 
 
-    });
-    // console.log(data.smokesHigh);
+  // const yScale = d3.scaleLinear()
+  //   .domain([6,d3.max(scatter_data, d => d.smokes)])
+  //   .range([height, 0])
+  //   .nice();
+  
+  
+  // const xAxis = d3.axisBottom(xScale);
+  // const yAxis = d3.axisLeft(yScale);
+
+
+    // scatter_data.forEach(function(data) {
+    //   data.smokesHigh = +data.smokesHigh;
+    //   data.age = +data.age;
+    //   data.income = +data.income;
+    //   data.obesity = +data.obesity;
+
+
+
+    // const xScale = d3.scaleLinear()
+    // .domain(d3.extent(scatter_data, d => d.age))
+    // .range([0, width])
+    // .nice(); 
+
+    //  const yScale = d3.scaleLinear()
+    // .domain([6,d3.max(scatter_data, d => d.smokes)])
+    // .range([height, 0])
+    // .nice();
+
+    // });
+    // // console.log(data.smokesHigh);
     // console.log(data.age);
     //create scatter with age as x and smokes as y
 
     svg.selectAll("#scatter")
     //  svg.append("g")
-        .data(scatter_data)
+        .data(CensusData)
         .enter()
         .append("circle")
         .classed("scatter", true)
